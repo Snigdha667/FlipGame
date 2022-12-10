@@ -1,0 +1,25 @@
+html {
+    background: linear-gradient(white,rgb(101, 101, 4));
+    color: black;
+  }
+  
+  div#memory_board {
+    background: linear-gradient(white,rgb(101, 101, 4));
+    border: white 1px solid;
+    width: 800px;
+    height: 540px;
+    padding: 24px;
+    margin: 0px auto;
+  }
+  
+  div#memory_board > div {
+    border: darkcyan 1px solid;
+    width: 70px;
+    height: 70px;
+    float: left;
+    padding: 20px;
+    margin: 10px;
+    font-size: 60px;
+    cursor: pointer;
+    text-align: center;
+  }

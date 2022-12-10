@@ -1,0 +1,108 @@
+<html>
+<head>
+  <script>
+    var memory_array = ['🎄','🎄','🛸','🛸','☄️', '☄️', '🦊','🦊','🐈','🐈','🦄','🦄','🐧','🐧','🕊️','🕊️','🦤','🦤', '🪶','🪶','🦕','🦕','🐟','🐟'];
+    var memory_values = [];
+    var memory_tile_ids = [];
+    var tiles_flipped = 0;
+    const h2=document.querySelectorAll('.hh');
+    var valu=6;
+    Array.prototype.memory_tile_shuffle = function(){
+      var i = this.length, j, temp;
+      while(--i > 0) {
+        j = Math.floor(Math.random() * (i+1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+      }
+      h2.innerText+='Trys Remaining : '+`${valu}`;
+    }
+
+    function newBoard(){
+      tiles_flipped = 0;
+      var output = '';
+      memory_array.memory_tile_shuffle();
+      for (var i=0; i< memory_array.length; i++){
+        output += '<div id="tile_'+i+'" onClick="memoryFlipTiles(this,\''+memory_array[i]+'\')"></div>';
+      }
+      document.getElementById('memory_board').innerHTML = output;
+    }
+
+    function memoryFlipTiles(tile, val) {
+      if (tile.innerHTML == "" && memory_values.length < 2){
+        tile.style.background = "#FFF";
+        tile.innerHTML = val;
+
+        if(memory_values.length == 0) {
+          memory_values.push(val);
+          memory_tile_ids.push(tile.id);
+        } else if (memory_values.length == 1) {
+          memory_values.push(val);
+          memory_tile_ids.push(tile.id);
+          if (memory_values[0] == memory_values[1]) {
+            tiles_flipped +=2;
+            //clear arrays
+             memory_values = [];
+             memory_tile_ids = [];
+
+             if(tiles_flipped == memory_array.length){
+                alert("Board cleared");
+                document.getElementById('memory_board').innerHTML = "";
+                v.innerHTML=tiles_flipped;
+                newBoard();
+              }
+          } else {valu=valu-1;
+            function flip2back(){
+              // Flip the 2 tiles back
+              var tile_1 = document.getElementById(memory_tile_ids[0]);
+              var tile_2 = document.getElementById(memory_tile_ids[1]);
+
+              tile_1.style.background = 'white';
+              tile_1.innerHTML = "";
+
+              tile_2.style.background = 'white';
+              tile_2.innerHTML = "";
+
+              //clear arrays
+             memory_values = [];
+             memory_tile_ids = [];
+            }
+            setTimeout(flip2back, 500);
+          }
+        }
+      }
+      console.log(valu);
+      console.log(h2.innerText);
+      h2.innerText="";
+      h2.innerText+='Trys Remaining : '+`${valu}`;
+      var val1=`${valu}`;
+      if(val1==0){
+        alert('Game Over');
+          document.getElementById('memory_board').innerHTML = "";
+                v.innerHTML=tiles_flipped;
+                newBoard();
+      }
+      else if(val1>0 && val1%2===0){
+        alert('Trys Remaining : '+`${valu}`);
+      }
+    }
+  </script>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+
+  <div >
+    <h2 style="text-align: center" class="hh">Try Remaining: 6</h2>
+    <!-- <h3 style="text-align: center">Flip the cards and try to remember as much as possible</h3>
+    <h4 style="text-align: center">If you find two similar, they will stay open.</h4> -->
+  </div>
+
+  <div id="memory_board"></div>
+  <script>newBoard();</script>
+
+  <!-- <div style="text-align: center"> 
+      <h5><a href="http://www.eleftheriabatsou.com" target="_blank">Eleftheria</a> | <a href="https://codepen.io/EleftheriaBatsou" target="_blank">Projects</a> | <a href="https://www.youtube.com/channel/UCC-WwYv3DEW7Nkm_IP6VeQQ" target="_blank"> Coding videos </a></h5>
+    <h4>Video tutorial for this project <a href="https://youtu.be/uMeg3Eta8YU" target="_blank">here</a></h4>
+    </div> end footer -->
+</body>
+</html>
